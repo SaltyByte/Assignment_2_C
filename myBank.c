@@ -9,7 +9,7 @@ void openAccount(double deposit) {
 			bank[i][0] = 1;
 			bank[i][1] = deposit;
 			int account = i + RANGE;
-			printf("New bank account: %d with the balance of: %.2lf\n", account, deposit);
+			printf("New account number is: %d\n", account);
 			return;
 		}
 	}
@@ -22,16 +22,16 @@ void balanceCheck(int account) {
 	}
 	else if (bank[account - RANGE][0] == 1) {
 		double balance = bank[account - RANGE][1];
-		printf("Account number: %d, Total balance: %.2lf\n ", account,  balance);
+		printf("The balance of account number %d is: %.2lf\n ", account,  balance);
 	}
 	else {
-		printf("No open account with given account number.\n");
+		printf("This account is closed\n");
 	}
 }
 
 void deposit(int account, double deposit) {
 	if (account < 901 || account > 951) {
-		printf("Invalid account number");
+		printf("Invalid account number\n");
 	}
 	else if (bank[account - RANGE][0] == 1 && deposit >= 0) {
 		bank[account - RANGE][1] += deposit;
@@ -45,16 +45,16 @@ void deposit(int account, double deposit) {
 
 void withdrawal(int account, double amount) {
 	if (account < 901 || account > 951) {
-		printf("Invalid account number");
+		printf("Invalid account number\n");
 	}
 	else if (bank[account - RANGE][0] == 1 && amount >= 0) {
 		if (bank[account - RANGE][1] - amount >= 0){
 			bank[account - RANGE][1] -= amount;
 			double balance = bank[account - RANGE][1];
-			printf("Account number: %d, Total balance after withdrawal: %.2lf\n", account,  balance);
+			printf("The new balance is: %.2lf\n", balance);
 		}
 		else {
-			printf("Not enough balance available in the account.\n");
+			printf("Cannot withdraw more than the balance.\n");
 		}
 	}
 	else {
@@ -64,7 +64,7 @@ void withdrawal(int account, double amount) {
 
 void closeAccount(int account) {
 	if (account < 901 || account > 951) {
-		printf("Invalid account number");
+		printf("Invalid account number\n");
 	}
 	else if (bank[account - RANGE][0] == 1) {
 		bank[account - RANGE][0] = 0;
@@ -84,7 +84,7 @@ void interestRate(double interestRate) {
 		}
 	}
 	else {
-		printf("Interest rate cannot be below -100%%");
+		printf("Interest rate cannot be below -100%%\n");
 	}
 }
 
@@ -92,7 +92,7 @@ void printAccounts() {
 	for (int i = 0; i < 50; i++) {
 		if (bank[i][0] == 1) {
 			double balance = bank[i][1];
-			printf("Account number: %d, Total balance is: %.2lf\n", i + RANGE,  balance);
+			printf("The balance of account number %d is: %.2lf\n", i + RANGE,  balance);
 		}
 	}
 }
