@@ -1,4 +1,3 @@
-#include<stdio.h>
 #ifndef MY_BANK
 #define MY_BANK
 
