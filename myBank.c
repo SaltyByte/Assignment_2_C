@@ -1,11 +1,17 @@
-#include<stdio.h>
-
+#include <stdio.h>
+// Static matrix, initialized with zeroes.
 static double bank[50][2] = {0};
+// Bank account number range.
 #define RANGE 901
 
+// Opens new account with given deposit amount. Account number is picked by availability. Prints the new account with given amount.
 void openAccount(double deposit) {
 	for (int i = 0; i < 50; i++) {
 		if (bank[i][0] == 0 && deposit >= 0) {
+			// Stores the deposit amount with only 2 digits after the dot. 
+			deposit *= 100;
+			deposit = (int)(deposit);
+			deposit /= 100;
 			bank[i][0] = 1;
 			bank[i][1] = deposit;
 			int account = i + RANGE;
@@ -15,7 +21,8 @@ void openAccount(double deposit) {
 	}
 	printf("No account available.\n");
 }
-	
+
+// Prints balance with given account numnber.
 void balanceCheck(int account) {
 	if (account < 901 || account > 951) {
 		printf("Invalid account number");
@@ -29,6 +36,7 @@ void balanceCheck(int account) {
 	}
 }
 
+// Deposit amount with given account number.
 void deposit(int account, double deposit) {
 	if (account < 901 || account > 951) {
 		printf("Invalid account number\n");
@@ -43,6 +51,7 @@ void deposit(int account, double deposit) {
 	}
 }
 
+// Withdrawal amount with given account number.
 void withdrawal(int account, double amount) {
 	if (account < 901 || account > 951) {
 		printf("Invalid account number\n");
@@ -62,6 +71,7 @@ void withdrawal(int account, double amount) {
 	}
 }
 
+// Closes account with given account number.
 void closeAccount(int account) {
 	if (account < 901 || account > 951) {
 		printf("Invalid account number\n");
@@ -75,6 +85,7 @@ void closeAccount(int account) {
 	}
 }
 
+// Takes the intrest rate and multiplies it with all the balances. NOTE: Negative interest rate lowers the balance.
 void interestRate(double interestRate) {
 	if (interestRate >= -100) {
 		for (int i = 0; i < 50; i++) {
@@ -88,6 +99,7 @@ void interestRate(double interestRate) {
 	}
 }
 
+// Prints all the open accounts in the bank and the balances.
 void printAccounts() {
 	for (int i = 0; i < 50; i++) {
 		if (bank[i][0] == 1) {
@@ -97,7 +109,7 @@ void printAccounts() {
 	}
 }
 
-
+// Closes all the open banks.
 void emptyBank() {
 	for (int i = 0; i < 50; i++) {
 		if (bank[i][0] == 1) {

@@ -1,22 +1,20 @@
-#include<stdio.h>
-#include"myBank.h"
+#include <stdio.h>
+#include "myBank.h"
 
 
 
 int main() {
 	int isActive = 1;
+	// While loop, over all inputs. ends when input is E
 	while(isActive){
+		// Init the vars.
 		char input;
 		int account = 0;
-		double amount = 0.0;	
+		double amount = 0.0;
 		printf("\nPlease choose a transaction type: \n O-Open Account\n B-Balance Inquiry\n D-Deposit\n W-Withdrawal\n C-Close Account\n I-Interest\n P-Print\n E-Exit\n");	
 		scanf(" %c", &input);
-		// if (getchar() != '\n') {
-		// 	while(getchar() != '\n');
-		// 	printf("Invalid Input!!");
-		// 	continue;
-		// }
 		switch(input) {
+			// Case O, Open new account, account number given by free space.
 			case 'O' :
 				printf("Please enter amount for deposit: ");
 				if (scanf(" %lf", &amount) == 1){
@@ -24,11 +22,11 @@ int main() {
 					break;
 				}
 				else {
-					//getchar();
-					printf("Failed to read the amount");
+					printf("Failed to read the amount\n");
 					break;
 				}
 
+			// Case B, Print balance of given account number.
 			case 'B' :
 				printf("Please enter account number: ");
 				if (scanf("%d", &account) == 1) {
@@ -36,16 +34,15 @@ int main() {
 					break;
 				}
 				else {
-					//getchar();
-					printf("Failed to read the account number");
+					printf("Failed to read the account number\n");
 					break;
 				}
 
+			// Case D, Deposit amount with given account number, cannot be negative.
 			case 'D' :
 				printf("Please enter account number: ");
 				if (scanf("%d", &account) != 1) {
-					//getchar();
-					printf("Failed to read the account number");
+					printf("Failed to read the account number\n");
 					break;
 				}
 				printf("Please enter amount for deposit: ");
@@ -54,16 +51,15 @@ int main() {
 					break;			
 				}
 				else {
-					printf("Failed to read the amount");
-					//getchar();
+					printf("Failed to read the amount\n");
 					break;
 				}
 
+			// Case W, Withdrawal amount with given account number, cant be negative and cannot withdrawal more than you got.
 			case 'W' : 
 				printf("Please enter account number: ");
 				if (scanf("%d", &account) != 1) {
-					//getchar();
-					printf("Failed to read the account number");
+					printf("Failed to read the account number\n");
 					break;
 				}
 				printf("Please enter the amount to withdraw: ");
@@ -72,17 +68,16 @@ int main() {
 					break;			
 				}
 				else {
-					printf("Failed to read the amount");
-					//getchar();
+					printf("Failed to read the amount\n");
 					break;
 				}
 				break;
-		
+
+			// Case C, Close account with given account number.
 			case 'C' :
 				printf("Please enter account number: ");
 				if (scanf("%d", &account) != 1) {
-					//getchar();
-					printf("Failed to read the account number");
+					printf("Failed to read the account number\n");
 					break;
 				}
 				else {
@@ -90,6 +85,7 @@ int main() {
 					break;
 				}
 			
+			// Case I, Input interest rate and update all the accounts.
 			case 'I' :
 				printf("Please enter interest rate: ");
 				if (scanf("%lf", &amount) == 1){
@@ -97,22 +93,24 @@ int main() {
 					break;
 				}
 				else {
-					//getchar();
-					printf("Failed to read the interest rate");
+					printf("Failed to read the interest rate\n");
 					break;
 				}
 			
+			// Case P, Prints all accounts numbers and all balances.
 			case 'P' :
 				printAccounts();
 				break;
 			
+			// Case E, Close all bank accounts and end while loop.
 			case 'E' :
 				emptyBank();
 				isActive = 0;
 				break;
 			
+			// Default case, if input neither one of the cases then error.
 			default :
-				printf("Invalid transaction type");
+				printf("Invalid transaction type\n");
 			}
 		}
 return 0;

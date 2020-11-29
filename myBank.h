@@ -2,7 +2,7 @@
 #ifndef MY_BANK
 #define MY_BANK
 
-
+// Function signatures.
 void openAccount(double deposit);
 void balanceCheck(int account);
 void deposit(int account, double deposit);
