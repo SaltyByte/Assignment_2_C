@@ -21,4 +21,4 @@ libmyBank.a: $(OBJECTS)
 .PHONY: clean all
 
 clean:
-	rm -f *.o *.a *.so main
+	rm -f *.o *.a main

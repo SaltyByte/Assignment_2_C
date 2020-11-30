@@ -1,19 +1,24 @@
 #include <stdio.h>
-// Static matrix, initialized with zeroes.
-static double bank[50][2] = {0};
+
+// Declare inner function.
+double roundToTwoDigits(double amount);
+
+// matrix, initialized with zeroes.
+double bank[50][2] = {0};
 // Bank account number range.
 #define RANGE 901
 
 // Opens new account with given deposit amount. Account number is picked by availability. Prints the new account with given amount.
 void openAccount(double deposit) {
+	if(deposit <= 0){
+		printf("Invalid Amount\n");
+		return;
+	}
 	for (int i = 0; i < 50; i++) {
-		if (bank[i][0] == 0 && deposit >= 0) {
+		if (bank[i][0] == 0) {
 			// Stores the deposit amount with only 2 digits after the dot. 
-			deposit *= 100;
-			deposit = (int)(deposit);
-			deposit /= 100;
 			bank[i][0] = 1;
-			bank[i][1] = deposit;
+			bank[i][1] = roundToTwoDigits(deposit);
 			int account = i + RANGE;
 			printf("New account number is: %d\n", account);
 			return;
@@ -25,7 +30,7 @@ void openAccount(double deposit) {
 // Prints balance with given account numnber.
 void balanceCheck(int account) {
 	if (account < 901 || account > 951) {
-		printf("Invalid account number");
+		printf("Invalid account number\n");
 	}
 	else if (bank[account - RANGE][0] == 1) {
 		double balance = bank[account - RANGE][1];
@@ -38,27 +43,24 @@ void balanceCheck(int account) {
 
 // Deposit amount with given account number.
 void deposit(int account, double deposit) {
-	if (account < 901 || account > 951) {
-		printf("Invalid account number\n");
+	if(deposit <= 0){
+		printf("Cannot deposit a negative amount\n");
 	}
-	else if (bank[account - RANGE][0] == 1 && deposit >= 0) {
-		bank[account - RANGE][1] += deposit;
+	else if (bank[account - RANGE][0] == 1) {
+		bank[account - RANGE][1] += roundToTwoDigits(deposit);
 		double balance = bank[account - RANGE][1];
-		printf("Account number: %d, Total balance after deposit: %.2lf\n", account,  balance);
+		printf("The new balance is: %.2lf\n", balance);
 	}
 	else {
-		printf("No open account with given account number.\n");
+		printf("This account is closed\n");
 	}
 }
 
 // Withdrawal amount with given account number.
 void withdrawal(int account, double amount) {
-	if (account < 901 || account > 951) {
-		printf("Invalid account number\n");
-	}
-	else if (bank[account - RANGE][0] == 1 && amount >= 0) {
-		if (bank[account - RANGE][1] - amount >= 0){
-			bank[account - RANGE][1] -= amount;
+	if (bank[account - RANGE][0] == 1) {
+		if (bank[account - RANGE][1] - roundToTwoDigits(amount) >= 0){
+			bank[account - RANGE][1] -= roundToTwoDigits(amount);
 			double balance = bank[account - RANGE][1];
 			printf("The new balance is: %.2lf\n", balance);
 		}
@@ -67,7 +69,7 @@ void withdrawal(int account, double amount) {
 		}
 	}
 	else {
-		printf("No open account with given account number.\n");
+		printf("This account is closed\n");
 	}
 }
 
@@ -79,23 +81,21 @@ void closeAccount(int account) {
 	else if (bank[account - RANGE][0] == 1) {
 		bank[account - RANGE][0] = 0;
 		bank[account - RANGE][1] = 0;
+		printf("Closed account number %d\n", account);
 	}
 	else {
-		printf("No open account with given account number.\n");
+		printf("This account is already closed\n");
 	}
 }
 
 // Takes the intrest rate and multiplies it with all the balances. NOTE: Negative interest rate lowers the balance.
-void interestRate(double interestRate) {
-	if (interestRate >= -100) {
-		for (int i = 0; i < 50; i++) {
-			if (bank[i][0] == 1 && interestRate >= -100) {
-				bank[i][1] += (interestRate * bank[i][1]) / 100;
-			}
+void interestRate(int interestRate) {
+	for (int i = 0; i < 50; i++) {
+		if (bank[i][0] == 1 && interestRate >= -100) {
+			int update = (interestRate * bank[i][1]) / 100;
+			update = roundToTwoDigits(update);
+			bank[i][1] += update;
 		}
-	}
-	else {
-		printf("Interest rate cannot be below -100%%\n");
 	}
 }
 
@@ -116,4 +116,10 @@ void emptyBank() {
 			bank[i][0] = 0;
 		}
 	}
+}
+// Helping function, round to two digits after the dot.
+double roundToTwoDigits(double amount){
+	amount *= 100;
+	amount = (int)(amount);
+	return amount /= 100;
 }

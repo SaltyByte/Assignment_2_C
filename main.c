@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "myBank.h"
-
+#define RANGE 901
 
 
 int main() {
@@ -11,6 +11,7 @@ int main() {
 		char input;
 		int account = 0;
 		double amount = 0.0;
+		int interest = 0;
 		printf("\nPlease choose a transaction type: \n O-Open Account\n B-Balance Inquiry\n D-Deposit\n W-Withdrawal\n C-Close Account\n I-Interest\n P-Print\n E-Exit\n");	
 		scanf(" %c", &input);
 		switch(input) {
@@ -45,7 +46,15 @@ int main() {
 					printf("Failed to read the account number\n");
 					break;
 				}
-				printf("Please enter amount for deposit: ");
+				if (account > 950 || account < 901) {
+					printf("Invalid account number\n");
+					break;
+				}
+				if (bank[account - RANGE][0] == 0) {
+					printf("This account is closed\n");
+					break;
+				}
+				printf("Please enter the amount to deposit: ");
 				if (scanf("%lf", &amount) == 1){
 					deposit(account, amount);
 					break;			
@@ -60,6 +69,14 @@ int main() {
 				printf("Please enter account number: ");
 				if (scanf("%d", &account) != 1) {
 					printf("Failed to read the account number\n");
+					break;
+				}
+				if (account > 950 || account < 901) {
+					printf("Invalid account number\n");
+					break;
+				}
+				if (bank[account - RANGE][0] == 0){
+					printf("This account is closed\n");
 					break;
 				}
 				printf("Please enter the amount to withdraw: ");
@@ -88,8 +105,12 @@ int main() {
 			// Case I, Input interest rate and update all the accounts.
 			case 'I' :
 				printf("Please enter interest rate: ");
-				if (scanf("%lf", &amount) == 1){
-					interestRate(amount);
+				if (scanf("%d", &interest) == 1){
+					if (interest < 0){
+						printf("Invalid interest rate\n");
+						break;
+					}
+					interestRate(interest);
 					break;
 				}
 				else {

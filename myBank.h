@@ -2,6 +2,7 @@
 #define MY_BANK
 
 // Function signatures.
+double bank[50][2];
 void openAccount(double deposit);
 void balanceCheck(int account);
 void deposit(int account, double deposit);
