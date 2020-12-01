@@ -20,7 +20,7 @@ void openAccount(double deposit) {
 			bank[i][0] = 1;
 			bank[i][1] = roundToTwoDigits(deposit);
 			int account = i + RANGE;
-			printf("New account number is: %d\n", account);
+			printf("New account number is: %d \n", account);
 			return;
 		}
 	}
@@ -91,8 +91,8 @@ void closeAccount(int account) {
 // Takes the intrest rate and multiplies it with all the balances. NOTE: Negative interest rate lowers the balance.
 void interestRate(int interestRate) {
 	for (int i = 0; i < 50; i++) {
-		if (bank[i][0] == 1 && interestRate >= -100) {
-			int update = (interestRate * bank[i][1]) / 100;
+		if (bank[i][0] == 1) {
+			double update = (interestRate * bank[i][1]) / 100;
 			update = roundToTwoDigits(update);
 			bank[i][1] += update;
 		}

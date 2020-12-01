@@ -8,7 +8,7 @@ void balanceCheck(int account);
 void deposit(int account, double deposit);
 void withdrawal(int account, double amount);
 void closeAccount(int account);
-void interestRate(double interestRate);
+void interestRate(int interestRate);
 void printAccounts();
 void emptyBank();
 

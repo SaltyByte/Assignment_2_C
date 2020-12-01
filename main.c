@@ -12,7 +12,7 @@ int main() {
 		int account = 0;
 		double amount = 0.0;
 		int interest = 0;
-		printf("\nPlease choose a transaction type: \n O-Open Account\n B-Balance Inquiry\n D-Deposit\n W-Withdrawal\n C-Close Account\n I-Interest\n P-Print\n E-Exit\n");	
+		printf("\nPlease choose a transaction type:\n O-Open Account\n B-Balance Inquiry\n D-Deposit\n W-Withdrawal\n C-Close Account\n I-Interest\n P-Print\n E-Exit\n");	
 		scanf(" %c", &input);
 		switch(input) {
 			// Case O, Open new account, account number given by free space.
